@@ -6,7 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Run Slack Notifier Action
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Run Slack Notifier action
       id: slack-notifier
       uses: ./
       with:
