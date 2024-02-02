@@ -6,7 +6,7 @@ require 'yaml'
 
 build_args = YAML.safe_load(ENV['INPUT_BUILD-ARGS']) if ENV.key?('INPUT_BUILD-ARGS')
 channel = ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#')
-text = ENV['INPUT_TEXT'] || '_this space intentionally left blank_'
+text = ENV['INPUT_TEXT']
 
 Slack.configure do |config|
   config.token = ENV['SLACK_API_TOKEN']

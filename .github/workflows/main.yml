@@ -5,12 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Run Slack Notifier action
       id: slack-notifier
       uses: ./
       with:
         channel: engineering-docker
+        text: This is a badger. 🦡
 
 name: Test
 
