@@ -7,11 +7,8 @@ inputs:
   message-id:
     description: 'The Slack message timestamp ID (if updating)'
     required: false
-  template-args:
+  template:
     description: 'Arguments for advanced message build (see docs)'
-    required: false
-  template-file:
-    description: 'Relative path to advanced message template'
     required: false
   text:
     description: 'Message text'

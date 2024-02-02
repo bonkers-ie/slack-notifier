@@ -18,9 +18,9 @@ client.auth_test
 
 options = { channel:, text: }
 
-if ENV.key?('INPUT_TEMPLATE-FILE')
-  args = YAML.safe_load(ENV['INPUT_TEMPLATE-ARGS']) if ENV.key?('INPUT_TEMPLATE-ARGS')
-  options.merge!(ERB.new(File.read(ENV['INPUT_TEMPLATE-FILE'])))
+if ENV.key?('INPUT_TEMPLATE')
+  args = YAML.safe_load(ENV['INPUT_TEMPLATE'])
+  options.merge!(ERB.new(args.delete('erb')).result(binding))
 end
 
 response = client.chat_postMessage(options)
