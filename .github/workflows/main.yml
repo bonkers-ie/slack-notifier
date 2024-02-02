@@ -1,0 +1,13 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Slack Notifier Action
+      id: slack-notifier
+      uses: slack-notifier@latest
+      with:
+        channel: test
