@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'erb'
 require 'json'
 require 'slack-ruby-client'
 require 'yaml'
