@@ -1,9 +1,7 @@
-name: Test
-
-on: [push]
-
 jobs:
   test:
+    env:
+      SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -13,3 +11,7 @@ jobs:
       uses: ./
       with:
         channel: test
+
+name: Test
+
+on: [push]
