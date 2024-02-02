@@ -17,6 +17,6 @@ client = Slack::Web::Client.new
 client.auth_test
 
 response = JSON.parse(client.chat_postMessage(channel: channel, text: text, as_user: true))
-raise response['error'] unless response['ok']
+raise response.error unless response.ok?
 
-puts "::set-output name=message-id::#{response['ts']}"
+puts "::set-output name=message-id::#{response.ts}"
