@@ -1,0 +1,21 @@
+name: 'Slack Notifier'
+description: 'Create and update Slack messages'
+inputs:
+  build-args:
+    description: 'Arguments for advanced message build (see docs)'
+    required: false
+  channel:
+    description: 'The Slack channel to post the message to'
+    required: true
+  message-id:
+    description: 'The Slack message timestamp ID (if updating)'
+    required: false
+  text:
+    description: 'Message text'
+    required: false
+outputs:
+  message-id:
+    description: 'The Slack message timestamp ID'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
