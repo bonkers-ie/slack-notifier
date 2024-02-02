@@ -8,6 +8,6 @@ jobs:
     steps:
     - name: Run Slack Notifier Action
       id: slack-notifier
-      uses: slack-notifier@latest
+      uses: ../action.yml@latest
       with:
         channel: test
