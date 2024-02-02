@@ -4,7 +4,6 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-build_args = YAML.safe_load(ENV['INPUT_BUILD-ARGS']) if ENV.key?('INPUT_BUILD-ARGS')
 channel = ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#')
 text = ENV['INPUT_TEXT']
 
@@ -16,7 +15,15 @@ end
 client = Slack::Web::Client.new
 client.auth_test
 
-response = client.chat_postMessage(channel: channel, text: text, as_user: true)
-raise response.error unless response.ok?
+options = (as_user: true, channel: channel)
 
+if ENV.key?('INPUT_TEMPLATE-FILE')
+  args = YAML.safe_load(ENV['INPUT_TEMPLATE-ARGS']) if ENV.key?('INPUT_TEMPLATE-ARGS')
+  options.merge!(ERB.new(File.read(ENV['INPUT_TEMPLATE-FILE'])))
+end
+
+options[:text] = text if text.present?
+
+response = client.chat_postMessage(options)
+raise response.error unless response.ok?
 puts "::set-output name=message-id::#{response.ts}"

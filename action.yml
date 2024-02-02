@@ -1,14 +1,17 @@
 name: 'Slack Notifier'
 description: 'Create and update Slack messages'
 inputs:
-  build-args:
-    description: 'Arguments for advanced message build (see docs)'
-    required: false
   channel:
     description: 'The Slack channel to post the message to'
     required: true
   message-id:
     description: 'The Slack message timestamp ID (if updating)'
+    required: false
+  template-args:
+    description: 'Arguments for advanced message build (see docs)'
+    required: false
+  template-file:
+    description: 'Relative path to advanced message template'
     required: false
   text:
     description: 'Message text'
