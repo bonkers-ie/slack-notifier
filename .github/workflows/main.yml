@@ -10,7 +10,7 @@ jobs:
       id: slack-notifier
       uses: ./
       with:
-        channel: test
+        channel: engineering-docker
 
 name: Test
 

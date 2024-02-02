@@ -4,7 +4,7 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-build_args = YAML.safe_load(ENV['INPUT_BUILD_ARGS']) if ENV.key?('INPUT_BUILD_ARGS')
+build_args = YAML.safe_load(ENV['INPUT_BUILD-ARGS']) if ENV.key?('INPUT_BUILD-ARGS')
 channel = ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#')
 text = ENV['INPUT_TEXT'] || '_this space intentionally left blank_'
 
