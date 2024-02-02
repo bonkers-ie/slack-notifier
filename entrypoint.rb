@@ -5,7 +5,7 @@ require 'slack-ruby-client'
 require 'yaml'
 
 build_args = YAML.safe_load(ENV['INPUT_BUILD_ARGS']) if ENV.key?('INPUT_BUILD_ARGS')
-channel = build_args['channel'].gsub(/\A\W*/, '#')
+channel = ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#')
 text = ENV['INPUT_TEXT'] || '_this space intentionally left blank_'
 
 Slack.configure do |config|
