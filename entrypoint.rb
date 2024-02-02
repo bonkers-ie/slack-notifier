@@ -19,4 +19,4 @@ client.auth_test
 response = client.chat_postMessage(channel: channel, text: text, as_user: true)
 raise response.error unless response.ok?
 
-puts "echo 'message-id=#{response.ts}' >> $GITHUB_OUTPUT"
+puts "::set-output name=message-id::#{response.ts}"
