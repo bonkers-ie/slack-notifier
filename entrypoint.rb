@@ -18,8 +18,11 @@ options = YAML.safe_load(ENV['INPUT_OPTIONS'])
 slack_options = { channel: }
 if ENV.key('INPUT_MESSAGE-ID')
   # retrieve
-elsif template = ENV['INPUT_TEMPLATE']
-  slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)))
+elsif ENV['INPUT_TEMPLATE']
+  template = JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding))
+  puts "Template is: #{template}"
+  puts template.keys.join(', ')
+  slack_options.merge!(JSON.parse(template).result(binding))
   slack_options[:metadata] = options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
