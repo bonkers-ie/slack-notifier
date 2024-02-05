@@ -5,8 +5,9 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-require_relative './lib/symbolize_helper'
-using SymbolizeHelper
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+require 'symbolize_helper'
+
 
 Slack.configure do |config|
   config.token = ENV['SLACK_API_TOKEN']
