@@ -19,7 +19,7 @@ if ENV.key('INPUT_MESSAGE-ID')
   # retrieve
 elsif options.key('erb')
   slack_options = ERB.new(options.delete('erb').to_s).result(binding).merge(channel:)
-  slack_args[:metadata] = options
+  slack_options[:metadata] = options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
   puts "::set-output name=message-id::#{response.ts}"
