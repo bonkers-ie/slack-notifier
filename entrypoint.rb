@@ -19,7 +19,7 @@ slack_options = { channel: }
 if ENV.key('INPUT_MESSAGE-ID')
   # retrieve
 elsif template = ENV['INPUT_TEMPLATE']
-  slack_options.merge!(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding))
+  slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)))
   slack_options[:metadata] = options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
