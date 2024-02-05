@@ -8,6 +8,9 @@ require 'yaml'
 $LOAD_PATH.unshift(File.expand_path('lib', __dir__))
 require 'symbolize_helper'
 
+puts $LOAD_PATH
+puts `echo pwd`
+puts `echo ls -la`
 puts SymbolizeHelper.send(:deep_symbolize_keys, { 'a' => { 'b' => 3 } })
 using SymbolizeHelper
 
