@@ -5,7 +5,7 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-require_relative 'lib/symbolize_helper'
+require_relative './lib/symbolize_helper'
 
 using SymbolizeHelper
 
