@@ -5,13 +5,7 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-$LOAD_PATH.unshift(File.expand_path('lib', __dir__))
-require 'symbolize_helper'
-
-puts $LOAD_PATH
-puts `echo pwd`
-puts `echo ls -la`
-puts SymbolizeHelper.send(:deep_symbolize_keys, { 'a' => { 'b' => 3 } })
+require_relative 'lib/symbolize_helper'
 using SymbolizeHelper
 
 Slack.configure do |config|
