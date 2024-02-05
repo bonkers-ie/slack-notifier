@@ -21,9 +21,10 @@ if ENV.key('INPUT_MESSAGE-ID')
 elsif ENV['INPUT_TEMPLATE']
   slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)))
   slack_options[:metadata] = options
-  response = client.chat_postMessage(slack_options.deep_symbolize_keys)
+  response = client.chat_postMessage(slack_options.deep_transform_keys(&:to_sym))
   raise response.error unless response.ok?
   puts "::set-output name=message-id::#{response.ts}"
 else
   raise 'Must either provide a template or update an existing message'
 end
+{}
