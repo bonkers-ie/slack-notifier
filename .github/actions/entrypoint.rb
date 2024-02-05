@@ -5,8 +5,8 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-
-require_relative 'lib/symbolize_helper'
+$LOAD_PATH.unshift(File.expand_path('lib', __dir__))
+require 'symbolize_helper'
 
 puts SymbolizeHelper.send(:deep_symbolize_keys, { 'a' => { 'b' => 3 } })
 using SymbolizeHelper
