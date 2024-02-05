@@ -5,7 +5,7 @@ require 'json'
 require 'slack-ruby-client'
 require 'yaml'
 
-require_relative './lib/symbolize_helper'
+$LOAD_PATH.unshift(File.expand_path('./lib', __dir__))
 
 using SymbolizeHelper
 
