@@ -10,9 +10,6 @@ inputs:
   template:
     description: 'Arguments for advanced message build (see docs)'
     required: false
-  text:
-    description: 'Message text'
-    required: false
 outputs:
   message-id:
     description: 'The Slack message timestamp ID'
