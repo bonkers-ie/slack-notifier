@@ -10,6 +10,9 @@ inputs:
   options:
     description: 'Options for message build'
     required: true
+  template:
+    description: 'Message template ERB'
+    required: false
 outputs:
   message-id:
     description: 'The Slack message timestamp ID'
