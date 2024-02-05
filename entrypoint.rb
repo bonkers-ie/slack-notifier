@@ -15,10 +15,11 @@ client.auth_test
 channel = ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#')
 options = YAML.safe_load(ENV['INPUT_OPTIONS'])
 
+slack_options = { channel: }
 if ENV.key('INPUT_MESSAGE-ID')
   # retrieve
 elsif options.key('erb')
-  slack_options = ERB.new(options.delete('erb').to_s).result(binding).merge(channel:)
+  slack_options.merge!(ERB.new(options.delete('erb').to_s).result(binding))
   slack_options[:metadata] = options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
