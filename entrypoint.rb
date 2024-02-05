@@ -21,6 +21,7 @@ if ENV.key('INPUT_MESSAGE-ID')
 elsif ENV['INPUT_TEMPLATE']
   slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)))
   slack_options[:metadata] = options
+  puts "Slack options are: #{slack_options}"
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
   puts "::set-output name=message-id::#{response.ts}"
