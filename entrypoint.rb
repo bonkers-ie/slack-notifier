@@ -20,8 +20,8 @@ options = YAML.safe_load(ENV['INPUT_OPTIONS']).deep_symbolize_keys
 
 if ENV.key('INPUT_MESSAGE-ID')
   oldest = ENV['INPUT_MESSAGE-ID']
-  puts slack_options.merge(inclusive: true, limit: 1, oldest:)
-  puts client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest:)).inspect
+  puts slack_options.merge(inclusive: true, limit: 1, oldest: oldest)
+  puts client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: oldest)).inspect
 elsif ENV['INPUT_TEMPLATE']
   slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)).deep_symbolize_keys)
   slack_options[:metadata] = options
