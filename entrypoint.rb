@@ -20,10 +20,10 @@ options = YAML.safe_load(ENV['INPUT_OPTIONS']).deep_symbolize_keys
 slack_options = { channel: ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#') }
 template = ENV['INPUT_TEMPLATE'].to_s
 
-if message_id.present?
+if message_id
   puts slack_options.merge(inclusive: true, limit: 1, oldest: message_id)
   puts client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
-elsif template.present?
+elsif template
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
   slack_options[:metadata] = options
   response = client.chat_postMessage(slack_options)
