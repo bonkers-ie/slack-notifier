@@ -28,7 +28,8 @@ if !message_id.empty?
   client.chat_update(slack_options.merge(ts: message_id, blocks: [{ text: { emoji: true, text: 'Complete!', type: 'plain_text' }, type: 'header' }]))
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
-  slack_options[:metadata] = { test: 'a', other: 'thing' }
+  slack_options[:metadata_event_type] = 'message_create'
+  slack_options[:metadata_event_payload] = { test: 'thing' }.to_json
   puts slack_options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
