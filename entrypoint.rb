@@ -9,8 +9,8 @@ require_relative 'lib/symbolize_helper'
 using SymbolizeHelper
 
 Slack.configure do |config|
-  config.token = ENV['SLACK_BOT_TOKEN']
-  raise 'Missing ENV[SLACK_BOT_TOKEN]!' unless config.token
+  config.token = ENV['SLACK_API_TOKEN']
+  raise 'Missing ENV[SLACK_API_TOKEN]!' unless config.token
 end
 client = Slack::Web::Client.new
 client.auth_test
