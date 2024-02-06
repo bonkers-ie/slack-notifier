@@ -27,7 +27,7 @@ GEM
     fiber-local (1.0.0)
     gli (2.21.1)
     hashie (5.0.0)
-    io-event (1.4.2)
+    io-event (1.4.3)
     multipart-post (2.3.0)
     net-http (0.4.1)
       uri
@@ -55,4 +55,4 @@ RUBY VERSION
    ruby 3.3.0p0
 
 BUNDLED WITH
-   2.5.5
+   2.5.6
