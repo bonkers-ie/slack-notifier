@@ -16,7 +16,7 @@ client = Slack::Web::Client.new
 client.auth_test
 
 channel = ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#')
-options = YAML.safe_load(ENV['INPUT_OPTIONS'])
+options = YAML.safe_load(ENV['INPUT_OPTIONS']).deep_symbolize_keys
 
 slack_options = { channel: }
 if ENV.key('INPUT_MESSAGE-ID')
@@ -25,9 +25,9 @@ elsif ENV['INPUT_TEMPLATE']
   slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)))
   slack_options[:metadata] = options
   puts '---------------'
-  puts slack_options.deep_symbolize_keys
+  puts slack_options
   puts '---------------'
-  response = client.chat_postMessage(slack_options.deep_symbolize_keys)
+  response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
   puts "::set-output name=message-id::#{response.ts}"
 else
