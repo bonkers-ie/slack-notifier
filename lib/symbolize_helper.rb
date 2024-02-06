@@ -8,7 +8,7 @@ module SymbolizeHelper
         new_value = if value.is_a?(Array)
           value.map(&:deep_symbolize_keys)
         elsif value.is_a?(Hash)
-          value.deep_symbolize_keys
+          deep_symbolize_keys(value)
         else
           value
         end
