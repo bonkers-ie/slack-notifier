@@ -22,7 +22,7 @@ slack_options = { channel: }
 if ENV.key('INPUT_MESSAGE-ID')
   # retrieve
 elsif ENV['INPUT_TEMPLATE']
-  slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)))
+  slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)).deep_symbolize_keys)
   slack_options[:metadata] = options
   puts '---------------'
   puts slack_options
