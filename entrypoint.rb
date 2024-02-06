@@ -22,7 +22,8 @@ template = ENV['INPUT_TEMPLATE'].to_s
 
 if !message_id.empty?
   puts slack_options.merge(inclusive: true, limit: 1, oldest: message_id)
-  puts client.groups_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
+  response = client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
+  puts response.inspect
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
   slack_options[:metadata] = options
