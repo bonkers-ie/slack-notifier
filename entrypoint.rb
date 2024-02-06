@@ -9,8 +9,8 @@ require_relative 'lib/symbolize_helper'
 using SymbolizeHelper
 
 Slack.configure do |config|
-  config.token = ENV['SLACK_API_TOKEN']
-  raise 'Missing ENV[SLACK_API_TOKEN]!' unless config.token
+  config.token = ENV['SLACK_BOT_TOKEN']
+  raise 'Missing ENV[SLACK_BOT_TOKEN]!' unless config.token
 end
 client = Slack::Web::Client.new
 client.auth_test
@@ -23,10 +23,12 @@ template = ENV['INPUT_TEMPLATE'].to_s
 if !message_id.empty?
   puts slack_options.merge(inclusive: true, limit: 1, oldest: message_id)
   response = client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
-  puts response.inspect
+  message = response.messages.first
+  puts "Metadata is #{message.metadata}"
+  client.chat_update(channel:, ts:, blocks: [{ emoji: true, text: 'Complete', type: 'plain_text', type: 'header' } ])
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
-  slack_options[:metadata] = options
+  slack_options[:metadata] = options.to_json
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
   puts "::set-output name=message-id::#{response.ts}"
