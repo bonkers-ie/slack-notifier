@@ -15,15 +15,16 @@ end
 client = Slack::Web::Client.new
 client.auth_test
 
-slack_options = { channel: ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#') }
+message_id = ENV['INPUT_MESSAGE-ID']
 options = YAML.safe_load(ENV['INPUT_OPTIONS']).deep_symbolize_keys
+slack_options = { channel: ENV['INPUT_CHANNEL'].gsub(/\A\W*/, '#') }
+template = ENV['INPUT_TEMPLATE'].to_s
 
-if ENV.key('INPUT_MESSAGE-ID')
-  oldest = ENV['INPUT_MESSAGE-ID']
-  puts slack_options.merge(inclusive: true, limit: 1, oldest: oldest)
-  puts client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: oldest)).inspect
-elsif ENV['INPUT_TEMPLATE']
-  slack_options.merge!(JSON.parse(ERB.new(ENV['INPUT_TEMPLATE'].to_s).result(binding)).deep_symbolize_keys)
+if message_id.present?
+  puts slack_options.merge(inclusive: true, limit: 1, oldest: message_id)
+  puts client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
+elsif template.present?
+  slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
   slack_options[:metadata] = options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
