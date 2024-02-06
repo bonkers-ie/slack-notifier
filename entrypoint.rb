@@ -24,11 +24,11 @@ if !message_id.empty?
   puts slack_options.merge(inclusive: true, limit: 1, oldest: message_id)
   response = client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
   message = response.messages.first
-  puts "Metadata is #{message.metadata}"
+  puts "Metadata is #{message.event_payload}"
   client.chat_update(slack_options.merge(ts: message_id, blocks: [{ text: { emoji: true, text: 'Complete!', type: 'plain_text' }, type: 'header' }]))
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
-  slack_options[:metadata] = options.to_json
+  slack_options[:metadata] = { event_type: 'message_created', event_payload: options.merge(template: template.to_s) }
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
   puts "::set-output name=message-id::#{response.ts}"
