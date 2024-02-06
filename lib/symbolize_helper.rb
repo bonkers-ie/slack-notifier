@@ -6,7 +6,7 @@ module SymbolizeHelper
       hash.each_with_object({}) do |(key, value), result|
         new_key = key.is_a?(String) ? key.to_sym : key
         new_value = if value.is_a?(Array)
-          value.map(&:deep_symbolize_keyes)
+          value.map(&:deep_symbolize_keys)
         elsif value.is_a?(Hash)
           value.deep_symbolize_keys
         else
