@@ -2,10 +2,10 @@ name: 'Slack Notifier'
 description: 'Create and update Slack messages'
 inputs:
   channel:
-    description: 'The Slack channel to post the message to'
+    description: 'Slack channel'
     required: true
   message-id:
-    description: 'The Slack message timestamp ID (if updating)'
+    description: 'Slack message timestamp ID (if updating)'
     required: false
   options:
     description: 'Options for message build'
