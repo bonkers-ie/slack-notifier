@@ -24,7 +24,7 @@ if !message_id.empty?
   puts slack_options.merge(inclusive: true, limit: 1, oldest: message_id)
   response = client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
   message = response.messages.first
-  puts "Metadata is #{message.metadata}"
+  puts "Metadata is #{message.metadata.event_payload}"
   client.chat_update(slack_options.merge(ts: message_id, blocks: [{ text: { emoji: true, text: 'Complete!', type: 'plain_text' }, type: 'header' }]))
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
