@@ -29,7 +29,7 @@ if !message_id.empty?
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
   slack_options[:include_all_metadata] = true
-  slack_options[:metadata] = { event_type: 'event_type', event_payload: { event: 'payload' }.to_json }
+  slack_options[:metadata] = { event_type: 'event_type', event_payload: { event: 'payload' } }
   puts slack_options
   response = client.chat_postMessage(slack_options)
   raise response.error unless response.ok?
