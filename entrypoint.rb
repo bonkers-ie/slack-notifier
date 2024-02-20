@@ -25,7 +25,7 @@ if !message_id.empty?
   response = client.conversations_history(slack_options.merge(inclusive: true, limit: 1, oldest: message_id))
   message = response.messages.first
   puts message.inspect
-  client.chat_update(slack_options.merge(ts: message_id, blocks: [{ text: { emoji: true, text: 'Complete!', type: 'plain_text' }, type: 'header' }]))
+  client.chat_update(slack_options.merge(ts: message_id, blocks: [{ text: { emoji: true, text: "Complete - #{message.metadata.event_payload}", type: 'plain_text' }, type: 'header' }]))
 elsif !template.empty?
   slack_options.merge!(JSON.parse(ERB.new(template).result(binding)).deep_symbolize_keys)
   slack_options[:include_all_metadata] = true
